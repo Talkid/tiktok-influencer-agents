@@ -32,7 +32,7 @@ class GraphSetup:
         self.conditional_logic = conditional_logic
 
     def setup_graph(
-        self, selected_analysts=["metrics", "content", "audience", "commerce"]
+        self, selected_analysts=["metrics", "content", "audience", "commerce"], debug=False
     ):
         if len(selected_analysts) == 0:
             raise ValueError("Influencer Agents Graph Setup Error: no analysts selected!")
@@ -61,7 +61,7 @@ class GraphSetup:
 
         # Parallel analysts node (replaces 4 sequential analyst chains)
         parallel_analysts_node = create_parallel_analysts(
-            self.quick_thinking_llm, selected_analysts
+            self.quick_thinking_llm, selected_analysts, debug=debug
         )
 
         # Create workflow

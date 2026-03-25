@@ -105,7 +105,7 @@ class InfluencerAnalysisGraph:
         self.log_states_dict = {}
 
         # Set up the graph
-        self.graph = self.graph_setup.setup_graph(selected_analysts)
+        self.graph = self.graph_setup.setup_graph(selected_analysts, debug=self.debug)
 
     def _get_provider_kwargs(self) -> Dict[str, Any]:
         kwargs = {}

@@ -23,7 +23,7 @@ _ANALYST_LABELS = {
 }
 
 
-def create_parallel_analysts(llm, selected_analysts):
+def create_parallel_analysts(llm, selected_analysts, debug=False):
     """Return a single LangGraph node that runs all selected analysts in parallel."""
     analyst_nodes = {
         name: _ANALYST_FACTORIES[name](llm)
@@ -47,7 +47,15 @@ def create_parallel_analysts(llm, selected_analysts):
                 label = _ANALYST_LABELS.get(name, name)
                 try:
                     results[name] = future.result()
+                    report = results[name].get(f"{name}_report", "")
                     print(f"  [完成] {label}")
+                    if debug and report:
+                        sep = "=" * 60
+                        print(f"\n{sep}")
+                        print(f"  {label} 报告")
+                        print(sep)
+                        print(report)
+                        print(f"{sep}\n")
                 except Exception as e:
                     results[name] = {f"{name}_report": f"分析失败: {e}"}
                     print(f"  [失败] {label}: {e}")
