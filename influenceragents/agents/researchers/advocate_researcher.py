@@ -38,7 +38,7 @@ Lessons from past analyses: {past_memory_str}
 
 Deliver a compelling case for why this influencer is worth partnering with. Address past lessons and learn from previous mistakes.
 
-Keep your response under 600 words. Focus on 1-2 key points only.
+Keep your response under 400 words. Focus on 1-2 key points only.
 
 IMPORTANT: Write your entire response in Chinese (Simplified)."""
 

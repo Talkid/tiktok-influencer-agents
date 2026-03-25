@@ -45,6 +45,8 @@ def create_campaign_manager(llm, memory):
 **Commission Tier Scale** ({symbol}):
 {tier_table}
 
+IMPORTANT: The suggested price per video in point 2 MUST fall strictly within the selected tier's price range. Do NOT suggest a price outside the tier's min/max bounds.
+
 **Context:**
 - Partnership Strategist's proposal: **{strategist_plan}**
 - Lessons from past decisions: **{past_memory_str}**

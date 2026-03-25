@@ -19,7 +19,7 @@ def analyze(
     market: str = typer.Option("MY", help="Target market code (MY, PH, VN, BR)"),
     debug: bool = typer.Option(False, help="Enable debug mode"),
     provider: str = typer.Option("openai", help="LLM provider"),
-    debate_rounds: int = typer.Option(1, help="Number of debate rounds"),
+    debate_rounds: int = typer.Option(3, help="Number of debate rounds"),
 ):
     """Analyze a TikTok influencer and generate an assessment report."""
     from influenceragents.graph.analysis_graph import InfluencerAnalysisGraph

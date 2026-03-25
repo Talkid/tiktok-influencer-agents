@@ -44,6 +44,7 @@ Your proposal must include:
 2. **Commission Tier**: Assign one of T0/T1/T2/T3 based on the influencer's comprehensive data:
    Commission Tiers ({symbol}):
 {tier_info}
+   IMPORTANT: Your suggested price per video MUST fall strictly within the selected tier's price range. Do NOT suggest a price outside the tier's min/max bounds.
 3. **Suggested Video Count**: How many videos for the campaign.
 4. **Content Direction**: Specific content themes and angles that align with the influencer's strengths.
 5. **Key Selling Points**: Why this influencer is (or isn't) worth the investment.

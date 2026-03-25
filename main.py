@@ -61,8 +61,8 @@ def main():
     parser.add_argument(
         "--debate-rounds",
         type=int,
-        default=1,
-        help="Number of debate rounds (default: 1)",
+        default=3,
+        help="Number of debate rounds (default: 3)",
     )
 
     args = parser.parse_args()
