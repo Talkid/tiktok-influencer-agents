@@ -38,7 +38,7 @@ Analyze the following aspects:
 
 First call get_recent_videos for video metadata, then analyze_video_thumbnails for visual analysis, and get_content_categories for hashtag analysis.
 
-Produce a comprehensive content report with extracted tags summarized at the end.
+Output format — use bullet points for each section and end with a compact tag summary block. Be concise: 2-4 bullets per section, no verbose paragraphs. Total report must stay under 400 words.
 
 IMPORTANT: Write your entire report in Chinese (Simplified). All analysis, labels, and summaries must be in Chinese."""
 
