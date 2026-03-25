@@ -44,7 +44,7 @@ Analyze the following aspects:
 
 First call get_ecommerce_history to analyze past collaborations, then get_competitor_pricing for market rates, and get_tiktok_shop_data for shop activity.
 
-Produce a comprehensive commerce report with pricing recommendation.
+Output format — use bullet points per section and end with a concise pricing recommendation. Be concise: 2-4 bullets each, key facts only, no verbose paragraphs. Total report must stay under 400 words.
 
 IMPORTANT: Write your entire report in Chinese (Simplified). All analysis, labels, and summaries must be in Chinese."""
 
