@@ -40,9 +40,17 @@ Past reflections on similar situations:
 Debate History:
 {history}
 
+Keep your entire response under 1200 words. Be concise and decisive.
+
 IMPORTANT: Write your entire response in Chinese (Simplified)."""
 
         response = llm.invoke(prompt)
+
+        print("\n" + "="*60)
+        print("评估经理决策结果:")
+        print("="*60)
+        print(response.content)
+        print("="*60 + "\n")
 
         new_state = {
             "judge_decision": response.content,

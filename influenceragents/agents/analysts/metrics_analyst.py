@@ -38,7 +38,7 @@ Analyze the following aspects:
 
 First call get_profile_info to get the basic profile, then get_engagement_rates for engagement metrics, and get_video_performance_stats for detailed video data. Use get_follower_growth for growth trend analysis.
 
-Output format — use bullet points and a compact summary table. Be concise: each section should be 2-4 bullet points with key numbers only. Skip verbose explanations. Total report must stay under 400 words.
+Output format — use bullet points and a compact summary table. Be concise: each section should be 2-4 bullet points with key numbers only. Skip verbose explanations. Total report must stay under 500 words.
 
 IMPORTANT: Write your entire report in Chinese (Simplified). All analysis, labels, and summaries must be in Chinese."""
 

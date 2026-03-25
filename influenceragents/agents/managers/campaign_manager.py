@@ -89,6 +89,8 @@ def create_campaign_manager(llm, memory):
 
 Be decisive and ground every conclusion in specific evidence from the analysts.
 
+Keep your entire response under 1600 words. 2-3 sentences per section, prioritize key data.
+
 IMPORTANT: Write your entire response in Chinese (Simplified). All section headers, analysis, and summaries must be in Chinese."""
 
         response = llm.invoke(prompt)

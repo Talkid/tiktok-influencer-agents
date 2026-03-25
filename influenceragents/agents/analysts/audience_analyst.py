@@ -37,7 +37,7 @@ Analyze the following aspects:
 
 First call get_audience_demographics for demographic data, then detect_fake_followers for authenticity analysis.
 
-Provide an authenticity score (1-10). Output format — use bullet points per section. Be concise: 2-4 bullets each, key data only, no verbose paragraphs. Total report must stay under 400 words.
+Provide an authenticity score (1-10). Output format — use bullet points per section. Be concise: 2-4 bullets each, key data only, no verbose paragraphs. Total report must stay under 500 words.
 
 IMPORTANT: Write your entire report in Chinese (Simplified). All analysis, labels, and summaries must be in Chinese."""
 

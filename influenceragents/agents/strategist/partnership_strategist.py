@@ -53,6 +53,8 @@ Apply lessons from past partnership decisions:
 
 Conclude with: PARTNERSHIP PROPOSAL: **[Recommend/Conditional/Not Recommend]** with tier and pricing.
 
+Keep your entire response under 900 words. 1-2 sentences per point.
+
 IMPORTANT: Write your entire response in Chinese (Simplified). All analysis, labels, and summaries must be in Chinese.""",
             },
             {

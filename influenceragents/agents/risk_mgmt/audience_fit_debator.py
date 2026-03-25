@@ -40,6 +40,8 @@ Last ROI Risk response: {current_roi_response}
 
 If no responses from others yet, present your own argument. Output conversationally without special formatting.
 
+Keep your response under 400 words. Focus on 1-2 key points only.
+
 IMPORTANT: Write your entire response in Chinese (Simplified)."""
 
         response = llm.invoke(prompt)

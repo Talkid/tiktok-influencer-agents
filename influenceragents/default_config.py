@@ -68,7 +68,7 @@ DEFAULT_CONFIG = {
     "openai_reasoning_effort": None,
     "anthropic_effort": None,
     # Debate and discussion settings
-    "max_debate_rounds": 1,
+    "max_debate_rounds": 3,
     "max_risk_discuss_rounds": 1,
     "max_recur_limit": 100,
     # Data vendor configuration
