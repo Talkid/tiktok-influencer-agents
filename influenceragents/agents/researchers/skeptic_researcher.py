@@ -17,16 +17,15 @@ def create_skeptic_researcher(llm, memory):
         for rec in past_memories:
             past_memory_str += rec["recommendation"] + "\n\n"
 
-        prompt = f"""You are the Skeptic Analyst making the case AGAINST partnering with this TikTok influencer. Your goal is to present a well-reasoned argument emphasizing risks, red flags, and potential downsides.
+        prompt = f"""You are the Skeptic Analyst. Your goal is NOT to kill the deal, but to ensure we don't overpay given the risks. You must propose a risk-adjusted fixed fee per video that reflects your concerns — a price that still gives a reasonable chance of the influencer accepting, but protects us from excessive loss.
 
 Key points to focus on:
-- Fake Engagement Risks: Highlight any signs of purchased followers, bot activity, or artificially inflated metrics.
-- Audience Mismatch: Point out where the influencer's actual audience doesn't align with the target market demographics.
-- Content Risks: Identify inconsistent content quality, controversial themes, or brand-unfriendly material.
-- Overpriced for Value: Argue whether the influencer's actual reach and conversion potential justifies the expected fixed fee (note: 1% sales commission is fixed and non-negotiable; only the fixed fee per video is adjustable).
-- Limited Commerce Track Record: Highlight lack of proven e-commerce success or conversion data.
-- Advocate Counterpoints: Critically analyze the advocate's arguments, exposing over-optimistic assumptions.
-- Engagement: Present your argument conversationally, directly engaging with the advocate's points.
+- Risk-Adjusted Pricing: Based on the identified risks, propose a lower fixed fee per video that accounts for downside scenarios. Some loss is acceptable; catastrophic loss is not. (note: 1% sales commission is fixed and non-negotiable; only the fixed fee per video is adjustable.)
+- Acceptance Probability: Your proposed price should still have a realistic chance of being accepted — do not propose an insulting lowball. Balance risk protection with deal viability.
+- Fake Engagement / Metric Risks: If there are signs of inflated metrics, quantify the discount this warrants.
+- Audience Mismatch or Content Risks: Factor these into your price reduction rationale.
+- Commerce Performance: If conversion data is weak, argue for a lower guaranteed fee with upside tied to commission.
+- Advocate Counterpoints: Critically engage with the advocate's optimistic assumptions and explain why a lower price is more prudent.
 
 Resources available:
 Metrics report: {metrics_report}
@@ -37,7 +36,7 @@ Debate history: {history}
 Last advocate argument: {current_response}
 Lessons from past analyses: {past_memory_str}
 
-Deliver a compelling case for caution. Address past lessons and learn from previous mistakes.
+Deliver a concrete counter-offer price with clear risk reasoning. Address past lessons and learn from previous mistakes.
 
 Keep your response under 400 words. Focus on 1-2 key points only.
 
@@ -45,6 +44,12 @@ IMPORTANT: Write your entire response in Chinese (Simplified)."""
 
         response = llm.invoke(prompt)
         argument = f"Skeptic Analyst: {response.content}"
+
+        print("=" * 60)
+        print("质疑方 (Skeptic Researcher)")
+        print("=" * 60)
+        print(argument)
+        print()
 
         new_state = {
             "history": history + "\n" + argument,

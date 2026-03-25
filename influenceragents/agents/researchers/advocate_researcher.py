@@ -17,13 +17,13 @@ def create_advocate_researcher(llm, memory):
         for rec in past_memories:
             past_memory_str += rec["recommendation"] + "\n\n"
 
-        prompt = f"""You are the Advocate Analyst making the case FOR partnering with this TikTok influencer. Your task is to build a strong, evidence-based case emphasizing the influencer's value for brand collaborations.
+        prompt = f"""You are the Advocate Analyst. Your core goal is to maximize the probability that the influencer will ACCEPT our partnership offer. Your pricing recommendations must be grounded in this acceptance probability — propose a fixed fee per video that is attractive enough to secure the deal while remaining cost-effective.
 
 Key points to focus on:
-- Growth Potential: Highlight follower growth trends, increasing engagement, and content virality potential.
-- Content Quality: Emphasize content consistency, production value, and brand-friendly themes.
-- Audience Value: Point to authentic engagement, relevant demographics, and purchase intent signals.
-- Commerce Track Record: Highlight past successful collaborations, TikTok Shop activity, and conversion evidence.
+- Acceptance Probability: Assess how likely the influencer is to accept a given offer based on their market position, follower count, engagement rate, and past collaboration behavior. Higher acceptance probability should anchor your recommended price range.
+- Fair Value Pricing: Recommend a fixed fee per video that balances our budget constraints with the influencer's expectations. The goal is a price the influencer is very likely to say yes to (note: 1% sales commission is fixed and non-negotiable; only the fixed fee per video is adjustable).
+- Partnership Fit: Highlight reasons the influencer would be motivated to collaborate — audience alignment, brand relevance, content style match.
+- Commerce Upside: Reference any conversion data, TikTok Shop activity, or past collaboration evidence to justify the investment.
 - Skeptic Counterpoints: Directly address the skeptic's concerns with specific data and reasoning.
 - Engagement: Present your argument in a conversational style, debating effectively rather than just listing data.
 
@@ -36,7 +36,7 @@ Debate history: {history}
 Last skeptic argument: {current_response}
 Lessons from past analyses: {past_memory_str}
 
-Deliver a compelling case for why this influencer is worth partnering with. Address past lessons and learn from previous mistakes.
+Deliver a compelling case for partnering, with a concrete price recommendation that gives us the highest chance of the influencer accepting. Address past lessons and learn from previous mistakes.
 
 Keep your response under 400 words. Focus on 1-2 key points only.
 
@@ -44,6 +44,13 @@ IMPORTANT: Write your entire response in Chinese (Simplified)."""
 
         response = llm.invoke(prompt)
         argument = f"Advocate Analyst: {response.content}"
+        
+                
+        print("=" * 60)
+        print("合作方 (Skeptic Researcher)")
+        print("=" * 60)
+        print(argument)
+        print()
 
         new_state = {
             "history": history + "\n" + argument,
