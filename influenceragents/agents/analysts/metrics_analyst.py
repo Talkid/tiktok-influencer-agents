@@ -38,7 +38,9 @@ Analyze the following aspects:
 
 First call get_profile_info to get the basic profile, then get_engagement_rates for engagement metrics, and get_video_performance_stats for detailed video data. Use get_follower_growth for growth trend analysis.
 
-Produce a comprehensive metrics report with a summary table at the end."""
+Produce a comprehensive metrics report with a summary table at the end.
+
+IMPORTANT: Write your entire report in Chinese (Simplified). All analysis, labels, and summaries must be in Chinese."""
 
         prompt = ChatPromptTemplate.from_messages(
             [

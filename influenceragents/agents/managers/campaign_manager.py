@@ -87,7 +87,9 @@ def create_campaign_manager(llm, memory):
 
 ---
 
-Be decisive and ground every conclusion in specific evidence from the analysts."""
+Be decisive and ground every conclusion in specific evidence from the analysts.
+
+IMPORTANT: Write your entire response in Chinese (Simplified). All section headers, analysis, and summaries must be in Chinese."""
 
         response = llm.invoke(prompt)
 

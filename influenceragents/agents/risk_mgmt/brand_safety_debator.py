@@ -36,7 +36,9 @@ Conversation history: {history}
 Last ROI Risk response: {current_roi_response}
 Last Audience Fit response: {current_audience_fit_response}
 
-If no responses from others yet, present your own argument. Output conversationally without special formatting."""
+If no responses from others yet, present your own argument. Output conversationally without special formatting.
+
+IMPORTANT: Write your entire response in Chinese (Simplified)."""
 
         response = llm.invoke(prompt)
         argument = f"Brand Safety Analyst: {response.content}"

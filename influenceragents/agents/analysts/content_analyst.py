@@ -38,7 +38,9 @@ Analyze the following aspects:
 
 First call get_recent_videos for video metadata, then analyze_video_thumbnails for visual analysis, and get_content_categories for hashtag analysis.
 
-Produce a comprehensive content report with extracted tags summarized at the end."""
+Produce a comprehensive content report with extracted tags summarized at the end.
+
+IMPORTANT: Write your entire report in Chinese (Simplified). All analysis, labels, and summaries must be in Chinese."""
 
         prompt = ChatPromptTemplate.from_messages(
             [

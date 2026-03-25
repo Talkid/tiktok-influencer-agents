@@ -36,7 +36,9 @@ Debate history: {history}
 Last skeptic argument: {current_response}
 Lessons from past analyses: {past_memory_str}
 
-Deliver a compelling case for why this influencer is worth partnering with. Address past lessons and learn from previous mistakes."""
+Deliver a compelling case for why this influencer is worth partnering with. Address past lessons and learn from previous mistakes.
+
+IMPORTANT: Write your entire response in Chinese (Simplified)."""
 
         response = llm.invoke(prompt)
         argument = f"Advocate Analyst: {response.content}"

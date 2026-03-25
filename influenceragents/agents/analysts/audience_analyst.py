@@ -37,7 +37,9 @@ Analyze the following aspects:
 
 First call get_audience_demographics for demographic data, then detect_fake_followers for authenticity analysis.
 
-Provide an authenticity score (1-10) and produce a comprehensive audience report."""
+Provide an authenticity score (1-10) and produce a comprehensive audience report.
+
+IMPORTANT: Write your entire report in Chinese (Simplified). All analysis, labels, and summaries must be in Chinese."""
 
         prompt = ChatPromptTemplate.from_messages(
             [

@@ -41,7 +41,9 @@ Analyze the following aspects:
 
 First call get_ecommerce_history to analyze past collaborations, then get_competitor_pricing for market rates, and get_tiktok_shop_data for shop activity.
 
-Produce a comprehensive commerce report with pricing recommendation."""
+Produce a comprehensive commerce report with pricing recommendation.
+
+IMPORTANT: Write your entire report in Chinese (Simplified). All analysis, labels, and summaries must be in Chinese."""
 
         prompt = ChatPromptTemplate.from_messages(
             [

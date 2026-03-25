@@ -37,7 +37,9 @@ Debate history: {history}
 Last advocate argument: {current_response}
 Lessons from past analyses: {past_memory_str}
 
-Deliver a compelling case for caution. Address past lessons and learn from previous mistakes."""
+Deliver a compelling case for caution. Address past lessons and learn from previous mistakes.
+
+IMPORTANT: Write your entire response in Chinese (Simplified)."""
 
         response = llm.invoke(prompt)
         argument = f"Skeptic Analyst: {response.content}"

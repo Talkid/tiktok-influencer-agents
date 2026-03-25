@@ -51,7 +51,9 @@ Your proposal must include:
 Apply lessons from past partnership decisions:
 {past_memory_str}
 
-Conclude with: PARTNERSHIP PROPOSAL: **[Recommend/Conditional/Not Recommend]** with tier and pricing.""",
+Conclude with: PARTNERSHIP PROPOSAL: **[Recommend/Conditional/Not Recommend]** with tier and pricing.
+
+IMPORTANT: Write your entire response in Chinese (Simplified). All analysis, labels, and summaries must be in Chinese.""",
             },
             {
                 "role": "user",

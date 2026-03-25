@@ -38,7 +38,9 @@ Past reflections on similar situations:
 {influencer_context}
 
 Debate History:
-{history}"""
+{history}
+
+IMPORTANT: Write your entire response in Chinese (Simplified)."""
 
         response = llm.invoke(prompt)
 
