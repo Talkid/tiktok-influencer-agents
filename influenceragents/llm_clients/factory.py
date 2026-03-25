@@ -15,7 +15,7 @@ def create_llm_client(
     """Create an LLM client for the specified provider."""
     provider_lower = provider.lower()
 
-    if provider_lower in ("openai", "ollama", "openrouter"):
+    if provider_lower in ("openai", "ollama", "openrouter", "doubao"):
         return OpenAIClient(model, base_url, provider=provider_lower, **kwargs)
 
     if provider_lower == "xai":

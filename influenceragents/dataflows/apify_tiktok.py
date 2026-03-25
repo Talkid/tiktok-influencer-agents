@@ -85,6 +85,8 @@ def get_apify_profile_info(username: str) -> str:
             f"Total Likes: {meta.get('heart', 'N/A')}",
             f"Total Videos: {meta.get('video', 'N/A')}",
             f"Verified: {meta.get('verified', False)}",
+            f"User ID: {meta.get('id', 'N/A')}",
+            f"Sec UID: {meta.get('secUid', 'N/A')}",
         ]
         return "\n".join(lines)
     except Exception as e:
@@ -479,10 +481,88 @@ def get_apify_competitor_pricing(username: str) -> str:
 
 
 def get_apify_tiktok_shop_data(username: str) -> str:
-    """Retrieve TikTok Shop product listing data if available."""
-    return (
-        f"TikTok Shop data for @{username}:\n"
-        f"Note: TikTok Shop scraping requires dedicated actor (e.g., charitable_aquarium/tiktok-shop-scraper). "
-        f"Configure APIFY_TIKTOK_SHOP_ACTOR in environment for TikTok Shop data access.\n"
-        f"Currently returning: No TikTok Shop data available."
-    )
+    """Retrieve TikTok Shop带货商品列表 via EchoTik API."""
+    import requests as _requests
+
+    cache_key = f"echotik_shop_{username}"
+    cached = _load_cache(cache_key)
+    if cached is not None:
+        products = cached
+    else:
+        # 从已缓存的 profile 获取 user_id
+        try:
+            profile_items = _run_actor(
+                "clockworks/tiktok-profile-scraper",
+                {"profiles": [username], "resultsPerPage": 1},
+                f"profile_{username}",
+            )
+        except Exception as e:
+            return f"Error fetching profile for @{username}: {e}"
+
+        if not profile_items:
+            return f"No profile data found for @{username}, cannot fetch TikTok Shop data."
+
+        meta = profile_items[0].get("authorMeta", profile_items[0])
+        user_id = str(meta.get("id", ""))
+        if not user_id:
+            return f"User ID not available for @{username}, cannot fetch TikTok Shop data."
+
+        base_url = os.environ.get("ECHOTIK_BASE_URL", "https://open.echotik.live")
+        echotik_user = os.environ.get("ECHOTIK_USERNAME", "")
+        echotik_pass = os.environ.get("ECHOTIK_PASSWORD", "")
+        if not echotik_user or not echotik_pass:
+            return (
+                f"EchoTik credentials not configured. "
+                f"Set ECHOTIK_USERNAME and ECHOTIK_PASSWORD in environment."
+            )
+
+        try:
+            resp = _requests.get(
+                f"{base_url}/api/v3/echotik/influencer/product/list",
+                params={
+                    "user_id": user_id,
+                    "page_num": 1,
+                    "page_size": 10,
+                    "influencer_product_sort_field": 1,  # 按总销量排序
+                    "sort_type": 1,  # desc
+                },
+                auth=(echotik_user, echotik_pass),
+                timeout=30,
+            )
+            resp.raise_for_status()
+        except Exception as e:
+            return f"Error calling EchoTik API for @{username}: {e}"
+
+        result = resp.json()
+        if result.get("code") != 0:
+            return f"EchoTik API error for @{username}: {result.get('message', 'Unknown error')}"
+
+        products = result.get("data", [])
+        _save_cache(cache_key, products)
+
+    if not products:
+        return f"TikTok Shop data for @{username}: 该达人无带货商品记录。"
+
+    meta = None  # user_id already embedded in products
+    uid = products[0].get("user_id", "N/A") if products else "N/A"
+    lines = [
+        f"TikTok Shop带货商品 — @{username} (User ID: {uid})",
+        f"共 {len(products)} 件商品（按总销量降序）:",
+        "",
+    ]
+    for i, p in enumerate(products, 1):
+        lines.append(f"{i}. {p.get('product_name', 'N/A')}")
+        lines.append(f"   商品ID: {p.get('product_id', 'N/A')}")
+        lines.append(f"   均价: {p.get('spu_avg_price', 'N/A')}")
+        lines.append(f"   总销量: {p.get('total_sale_cnt', 0):,}")
+        lines.append(f"   总销售额: {p.get('total_sale_gmv_amt', 0):,.2f}")
+        lines.append(
+            f"   直播带货: {p.get('total_live_cnt', 0)} 场, "
+            f"直播销量: {p.get('total_live_sale_cnt', 0):,}"
+        )
+        lines.append(
+            f"   视频带货: {p.get('total_video_cnt', 0)} 条, "
+            f"视频销量: {p.get('total_video_sale_cnt', 0):,}"
+        )
+        lines.append("")
+    return "\n".join(lines)

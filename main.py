@@ -73,6 +73,7 @@ def main():
         "google":    ("gemini-2.5-pro",    "gemini-2.5-flash"),
         "xai":       ("grok-4-0709",       "grok-4-fast-non-reasoning"),
         "openai":    ("gpt-4o",            "gpt-4o-mini"),
+        "doubao":    ("doubao-seed-2-0-pro-260215", "doubao-seed-2-0-lite-260215"),
     }
 
     # Build config
