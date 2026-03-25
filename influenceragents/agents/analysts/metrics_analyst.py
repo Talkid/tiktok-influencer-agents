@@ -1,4 +1,5 @@
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.messages import HumanMessage, ToolMessage
 
 from influenceragents.agents.utils.agent_utils import (
     build_influencer_context,
@@ -8,20 +9,22 @@ from influenceragents.agents.utils.agent_utils import (
     get_video_performance_stats,
 )
 
+_MAX_TOOL_ITERATIONS = 8
+
 
 def create_metrics_analyst(llm):
+    tools = [
+        get_profile_info,
+        get_follower_growth,
+        get_engagement_rates,
+        get_video_performance_stats,
+    ]
+    tool_map = {t.name: t for t in tools}
 
     def metrics_analyst_node(state):
         username = state["influencer_username"]
         market = state.get("target_market", "MY")
         influencer_context = build_influencer_context(username, market)
-
-        tools = [
-            get_profile_info,
-            get_follower_growth,
-            get_engagement_rates,
-            get_video_performance_stats,
-        ]
 
         system_message = """You are an influencer metrics analyst. Your task is to analyze the TikTok influencer's quantitative data and detect potential anomalies.
 
@@ -56,19 +59,29 @@ IMPORTANT: Write your entire report in Chinese (Simplified). All analysis, label
         )
 
         prompt = prompt.partial(system_message=system_message)
-        prompt = prompt.partial(tool_names=", ".join([tool.name for tool in tools]))
+        prompt = prompt.partial(tool_names=", ".join([t.name for t in tools]))
         prompt = prompt.partial(influencer_context=influencer_context)
 
         chain = prompt | llm.bind_tools(tools)
-        result = chain.invoke(state["messages"])
-
+        messages = list(state["messages"])
         report = ""
-        if len(result.tool_calls) == 0:
-            report = result.content
+
+        for _ in range(_MAX_TOOL_ITERATIONS):
+            result = chain.invoke(messages)
+            if not result.tool_calls:
+                report = result.content
+                break
+            messages.append(result)
+            for tc in result.tool_calls:
+                try:
+                    output = tool_map[tc["name"]].invoke(tc["args"])
+                except Exception as e:
+                    output = f"工具调用失败 ({tc['name']}): {e}"
+                messages.append(ToolMessage(content=str(output), tool_call_id=tc["id"]))
 
         return {
-            "messages": [result],
             "metrics_report": report,
+            "messages": [HumanMessage(content="Continue")],
         }
 
     return metrics_analyst_node

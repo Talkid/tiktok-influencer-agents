@@ -3,8 +3,6 @@ from pathlib import Path
 import json
 from typing import Dict, Any, List, Optional
 
-from langgraph.prebuilt import ToolNode
-
 from influenceragents.llm_clients import create_llm_client
 
 from influenceragents.agents import *
@@ -16,21 +14,6 @@ from influenceragents.agents.utils.agent_states import (
     RiskDebateState,
 )
 from influenceragents.dataflows.config import set_config
-
-from influenceragents.agents.utils.agent_utils import (
-    get_profile_info,
-    get_follower_growth,
-    get_engagement_rates,
-    get_video_performance_stats,
-    get_recent_videos,
-    analyze_video_thumbnails,
-    get_content_categories,
-    get_audience_demographics,
-    detect_fake_followers,
-    get_ecommerce_history,
-    get_competitor_pricing,
-    get_tiktok_shop_data,
-)
 
 from .conditional_logic import ConditionalLogic
 from .setup import GraphSetup
@@ -96,9 +79,6 @@ class InfluencerAnalysisGraph:
         self.evaluation_judge_memory = InfluencerSituationMemory("evaluation_judge_memory", self.config)
         self.campaign_manager_memory = InfluencerSituationMemory("campaign_manager_memory", self.config)
 
-        # Create tool nodes
-        self.tool_nodes = self._create_tool_nodes()
-
         # Initialize components
         self.conditional_logic = ConditionalLogic(
             max_debate_rounds=self.config["max_debate_rounds"],
@@ -107,7 +87,6 @@ class InfluencerAnalysisGraph:
         self.graph_setup = GraphSetup(
             self.quick_thinking_llm,
             self.deep_thinking_llm,
-            self.tool_nodes,
             self.advocate_memory,
             self.skeptic_memory,
             self.strategist_memory,
@@ -146,14 +125,6 @@ class InfluencerAnalysisGraph:
                 kwargs["effort"] = effort
 
         return kwargs
-
-    def _create_tool_nodes(self) -> Dict[str, ToolNode]:
-        return {
-            "metrics": ToolNode([get_profile_info, get_follower_growth, get_engagement_rates, get_video_performance_stats]),
-            "content": ToolNode([get_recent_videos, analyze_video_thumbnails, get_content_categories]),
-            "audience": ToolNode([get_audience_demographics, detect_fake_followers]),
-            "commerce": ToolNode([get_ecommerce_history, get_competitor_pricing, get_tiktok_shop_data]),
-        }
 
     def propagate(self, username: str, analysis_date: str = None, target_market: str = None):
         """Run the influencer analysis graph for a TikTok username.

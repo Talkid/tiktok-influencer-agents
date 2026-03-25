@@ -8,34 +8,6 @@ class ConditionalLogic:
         self.max_debate_rounds = max_debate_rounds
         self.max_risk_discuss_rounds = max_risk_discuss_rounds
 
-    def should_continue_metrics(self, state: AgentState):
-        messages = state["messages"]
-        last_message = messages[-1]
-        if last_message.tool_calls:
-            return "tools_metrics"
-        return "Msg Clear Metrics"
-
-    def should_continue_content(self, state: AgentState):
-        messages = state["messages"]
-        last_message = messages[-1]
-        if last_message.tool_calls:
-            return "tools_content"
-        return "Msg Clear Content"
-
-    def should_continue_audience(self, state: AgentState):
-        messages = state["messages"]
-        last_message = messages[-1]
-        if last_message.tool_calls:
-            return "tools_audience"
-        return "Msg Clear Audience"
-
-    def should_continue_commerce(self, state: AgentState):
-        messages = state["messages"]
-        last_message = messages[-1]
-        if last_message.tool_calls:
-            return "tools_commerce"
-        return "Msg Clear Commerce"
-
     def should_continue_debate(self, state: AgentState) -> str:
         if state["suitability_debate_state"]["count"] >= 2 * self.max_debate_rounds:
             return "Evaluation Manager"

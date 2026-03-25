@@ -1,8 +1,8 @@
 from typing import Dict, Any
 from langgraph.graph import END, StateGraph, START
-from langgraph.prebuilt import ToolNode
 
 from influenceragents.agents import *
+from influenceragents.agents.analysts.parallel_runner import create_parallel_analysts
 from influenceragents.agents.utils.agent_states import AgentState
 
 from .conditional_logic import ConditionalLogic
@@ -15,7 +15,6 @@ class GraphSetup:
         self,
         quick_thinking_llm,
         deep_thinking_llm,
-        tool_nodes: Dict[str, ToolNode],
         advocate_memory,
         skeptic_memory,
         strategist_memory,
@@ -25,7 +24,6 @@ class GraphSetup:
     ):
         self.quick_thinking_llm = quick_thinking_llm
         self.deep_thinking_llm = deep_thinking_llm
-        self.tool_nodes = tool_nodes
         self.advocate_memory = advocate_memory
         self.skeptic_memory = skeptic_memory
         self.strategist_memory = strategist_memory
@@ -38,31 +36,6 @@ class GraphSetup:
     ):
         if len(selected_analysts) == 0:
             raise ValueError("Influencer Agents Graph Setup Error: no analysts selected!")
-
-        # Create analyst nodes
-        analyst_nodes = {}
-        delete_nodes = {}
-        tool_nodes = {}
-
-        if "metrics" in selected_analysts:
-            analyst_nodes["metrics"] = create_metrics_analyst(self.quick_thinking_llm)
-            delete_nodes["metrics"] = create_msg_delete()
-            tool_nodes["metrics"] = self.tool_nodes["metrics"]
-
-        if "content" in selected_analysts:
-            analyst_nodes["content"] = create_content_analyst(self.quick_thinking_llm)
-            delete_nodes["content"] = create_msg_delete()
-            tool_nodes["content"] = self.tool_nodes["content"]
-
-        if "audience" in selected_analysts:
-            analyst_nodes["audience"] = create_audience_analyst(self.quick_thinking_llm)
-            delete_nodes["audience"] = create_msg_delete()
-            tool_nodes["audience"] = self.tool_nodes["audience"]
-
-        if "commerce" in selected_analysts:
-            analyst_nodes["commerce"] = create_commerce_analyst(self.quick_thinking_llm)
-            delete_nodes["commerce"] = create_msg_delete()
-            tool_nodes["commerce"] = self.tool_nodes["commerce"]
 
         # Create researcher and manager nodes
         advocate_node = create_advocate_researcher(
@@ -86,16 +59,16 @@ class GraphSetup:
             self.deep_thinking_llm, self.campaign_manager_memory
         )
 
+        # Parallel analysts node (replaces 4 sequential analyst chains)
+        parallel_analysts_node = create_parallel_analysts(
+            self.quick_thinking_llm, selected_analysts
+        )
+
         # Create workflow
         workflow = StateGraph(AgentState)
 
-        # Add analyst nodes to the graph
-        for analyst_type, node in analyst_nodes.items():
-            workflow.add_node(f"{analyst_type.capitalize()} Analyst", node)
-            workflow.add_node(
-                f"Msg Clear {analyst_type.capitalize()}", delete_nodes[analyst_type]
-            )
-            workflow.add_node(f"tools_{analyst_type}", tool_nodes[analyst_type])
+        # Single parallel node for all analysts
+        workflow.add_node("Parallel Analysts", parallel_analysts_node)
 
         # Add other nodes
         workflow.add_node("Advocate Researcher", advocate_node)
@@ -108,27 +81,8 @@ class GraphSetup:
         workflow.add_node("Campaign Manager", campaign_manager_node)
 
         # Define edges
-        first_analyst = selected_analysts[0]
-        workflow.add_edge(START, f"{first_analyst.capitalize()} Analyst")
-
-        # Connect analysts in sequence
-        for i, analyst_type in enumerate(selected_analysts):
-            current_analyst = f"{analyst_type.capitalize()} Analyst"
-            current_tools = f"tools_{analyst_type}"
-            current_clear = f"Msg Clear {analyst_type.capitalize()}"
-
-            workflow.add_conditional_edges(
-                current_analyst,
-                getattr(self.conditional_logic, f"should_continue_{analyst_type}"),
-                [current_tools, current_clear],
-            )
-            workflow.add_edge(current_tools, current_analyst)
-
-            if i < len(selected_analysts) - 1:
-                next_analyst = f"{selected_analysts[i+1].capitalize()} Analyst"
-                workflow.add_edge(current_clear, next_analyst)
-            else:
-                workflow.add_edge(current_clear, "Advocate Researcher")
+        workflow.add_edge(START, "Parallel Analysts")
+        workflow.add_edge("Parallel Analysts", "Advocate Researcher")
 
         # Suitability debate edges
         workflow.add_conditional_edges(
