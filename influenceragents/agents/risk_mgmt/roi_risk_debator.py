@@ -21,7 +21,7 @@ Here is the partnership strategist's proposal:
 Your task is to argue for the investment case:
 - Highlight potential virality and reach amplification
 - Emphasize engagement metrics that predict conversion
-- Argue that the pricing is justified (or a bargain) given the influencer's actual performance
+- Argue that the fixed fee per video is justified (or a bargain) given the influencer's actual performance (note: 1% sales commission is fixed; only the fixed fee is negotiable)
 - Point out growth trajectory suggesting the influencer's value will increase
 - Counter the Brand Safety Analyst's overcaution when risks are manageable
 - Challenge the Audience Fit Analyst's narrow targeting when broader reach has value

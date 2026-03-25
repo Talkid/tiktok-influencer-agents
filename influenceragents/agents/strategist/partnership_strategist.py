@@ -27,7 +27,7 @@ def create_partnership_strategist(llm, memory):
 
         from influenceragents.default_config import MARKET_CONFIGS
         market_config = MARKET_CONFIGS.get(market, MARKET_CONFIGS["MY"])
-        tiers = market_config["commission_tiers"]
+        tiers = market_config["fixed_fee_tiers"]
         symbol = market_config["currency_symbol"]
 
         tier_info = "\n".join([
@@ -41,10 +41,11 @@ def create_partnership_strategist(llm, memory):
 
 Your proposal must include:
 1. **Collaboration Format**: Single video or multi-video series (no livestream or affiliate).
-2. **Commission Tier**: Assign one of T0/T1/T2/T3 based on the influencer's comprehensive data:
-   Commission Tiers ({symbol}):
+2. **Fixed Fee Tier（固定费用档位）**: Assign one of T0/T1/T2/T3 based on the influencer's comprehensive data:
+   Fixed Fee Tiers per video ({symbol}):
 {tier_info}
-   IMPORTANT: Your suggested price per video MUST fall strictly within the selected tier's price range. Do NOT suggest a price outside the tier's min/max bounds.
+   IMPORTANT: Your suggested fixed fee per video MUST fall strictly within the selected tier's price range. Do NOT suggest a price outside the tier's min/max bounds
+   Note: In addition to the fixed fee, a fixed 1% sales commission applies to all partnerships..
 3. **Suggested Video Count**: How many videos for the campaign.
 4. **Content Direction**: Specific content themes and angles that align with the influencer's strengths.
 5. **Key Selling Points**: Why this influencer is (or isn't) worth the investment.

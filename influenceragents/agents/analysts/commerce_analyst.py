@@ -37,7 +37,7 @@ Analyze the following aspects:
    - Health & Fitness
    - Baby & Kids
    - Others
-6. **Commission Tier Assessment**: Based on followers, engagement, and e-commerce track record, suggest T0/T1/T2/T3 tier
+6. **Fixed Fee Tier Assessment（固定费用档位评估）**: Based on followers, engagement, and e-commerce track record, suggest T0/T1/T2/T3 tier. Note: a fixed 1% sales commission applies to all partnerships in addition to the fixed fee.
 
 First call get_ecommerce_history to analyze past collaborations, then get_competitor_pricing for market rates, and get_tiktok_shop_data for shop activity.
 

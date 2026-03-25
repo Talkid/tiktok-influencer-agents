@@ -450,7 +450,7 @@ def get_apify_competitor_pricing(username: str) -> str:
         from influenceragents.default_config import MARKET_CONFIGS
         market = config.get("target_market", "MY")
         market_config = MARKET_CONFIGS.get(market, MARKET_CONFIGS["MY"])
-        tiers = market_config["commission_tiers"]
+        tiers = market_config["fixed_fee_tiers"]
         symbol = market_config["currency_symbol"]
 
         if followers >= 1000000:
@@ -465,16 +465,17 @@ def get_apify_competitor_pricing(username: str) -> str:
         tier_info = tiers[tier]
 
         return (
-            f"Pricing Estimation for @{username} ({followers:,} followers):\n"
-            f"Estimated Tier: {tier}\n"
-            f"Market Rate Range: {tier_info['label']}\n"
+            f"Fixed Fee Estimation for @{username} ({followers:,} followers):\n"
+            f"Estimated Fixed Fee Tier: {tier}\n"
+            f"Fixed Fee Range per video: {tier_info['label']}\n"
             f"Market: {market}\n\n"
-            f"Reference Tiers ({symbol}):\n"
+            f"Reference Fixed Fee Tiers ({symbol}):\n"
             f"  T0 (1M+ followers): {tiers['T0']['label']}\n"
             f"  T1 (500K-1M followers): {tiers['T1']['label']}\n"
             f"  T2 (100K-500K followers): {tiers['T2']['label']}\n"
             f"  T3 (<100K followers): {tiers['T3']['label']}\n"
-            f"\nNote: Actual pricing depends on engagement rate, content quality, and niche."
+            f"\nNote: Fixed 1% sales commission applies to all partnerships in addition to the fixed fee.\n"
+            f"Actual fixed fee depends on engagement rate, content quality, and niche."
         )
     except Exception as e:
         return f"Error researching pricing for @{username}: {e}"

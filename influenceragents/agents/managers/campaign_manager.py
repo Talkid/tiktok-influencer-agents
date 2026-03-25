@@ -24,7 +24,7 @@ def create_campaign_manager(llm, memory):
 
         from influenceragents.default_config import MARKET_CONFIGS
         market_config = MARKET_CONFIGS.get(market, MARKET_CONFIGS["MY"])
-        tiers = market_config["commission_tiers"]
+        tiers = market_config["fixed_fee_tiers"]
         symbol = market_config["currency_symbol"]
 
         tier_table = "\n".join([f"  {k}: {v['label']}" for k, v in tiers.items()])
@@ -42,10 +42,10 @@ def create_campaign_manager(llm, memory):
 - **C** (Caution): Below-average value, proceed only with significant negotiation
 - **D** (Avoid): Not recommended for partnership
 
-**Commission Tier Scale** ({symbol}):
+**Fixed Fee Tier Scale（固定费用档位）** ({symbol}):
 {tier_table}
 
-IMPORTANT: The suggested price per video in point 2 MUST fall strictly within the selected tier's price range. Do NOT suggest a price outside the tier's min/max bounds.
+IMPORTANT: The suggested fixed fee per video in point 2 MUST fall strictly within the selected tier's price range. Do NOT suggest a price outside the tier's min/max bounds. Note: A fixed 1% sales commission applies to all partnerships, in addition to the fixed fee.
 
 **Context:**
 - Partnership Strategist's proposal: **{strategist_plan}**
@@ -56,7 +56,7 @@ IMPORTANT: The suggested price per video in point 2 MUST fall strictly within th
 === INFLUENCER ASSESSMENT REPORT ===
 
 1. TIER RATING: [S / A / B / C / D]
-2. COMMISSION TIER: [T0 / T1 / T2 / T3] — Suggested price: XXX {symbol}/video
+2. FIXED FEE TIER（固定费用档位）: [T0 / T1 / T2 / T3] — Suggested fixed fee: XXX {symbol}/video（另加固定1%销售佣金）
 3. VERDICT: [Highly Recommended / Recommended / Conditional / Not Recommended / Avoid]
 
 4. PROFILE SUMMARY
@@ -74,7 +74,7 @@ IMPORTANT: The suggested price per video in point 2 MUST fall strictly within th
 
 7. COLLABORATION RECOMMENDATION
    - Format (single/multi video), Video count
-   - Content direction, Commission tier rationale
+   - Content direction, Fixed fee tier rationale
 
 8. RISK ASSESSMENT
    - Brand Safety, Audience Authenticity, ROI Confidence

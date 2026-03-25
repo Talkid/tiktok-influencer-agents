@@ -23,7 +23,7 @@ Key points to focus on:
 - Fake Engagement Risks: Highlight any signs of purchased followers, bot activity, or artificially inflated metrics.
 - Audience Mismatch: Point out where the influencer's actual audience doesn't align with the target market demographics.
 - Content Risks: Identify inconsistent content quality, controversial themes, or brand-unfriendly material.
-- Overpriced for Value: Argue whether the influencer's actual reach and conversion potential justifies the expected pricing.
+- Overpriced for Value: Argue whether the influencer's actual reach and conversion potential justifies the expected fixed fee (note: 1% sales commission is fixed and non-negotiable; only the fixed fee per video is adjustable).
 - Limited Commerce Track Record: Highlight lack of proven e-commerce success or conversion data.
 - Advocate Counterpoints: Critically analyze the advocate's arguments, exposing over-optimistic assumptions.
 - Engagement: Present your argument conversationally, directly engaging with the advocate's points.

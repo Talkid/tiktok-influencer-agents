@@ -56,7 +56,7 @@ def analyze(
 
     console.print(f"\n[bold green]ANALYSIS COMPLETE[/bold green]")
     console.print(f"  Tier Rating:     [bold]{signal['tier']}[/bold]")
-    console.print(f"  Commission Tier: [bold]{signal['commission_tier']}[/bold]")
+    console.print(f"  Fixed Fee Tier: [bold]{signal['fixed_fee_tier']}[/bold] （另加固定1%销售佣金）")
     console.print()
     console.print(final_state["final_assessment"])
 

@@ -122,7 +122,7 @@ def main():
     print(f"  ANALYSIS COMPLETE")
     print(f"{'='*60}")
     print(f"  Tier Rating:     {signal['tier']}")
-    print(f"  Commission Tier: {signal['commission_tier']}")
+    print(f"  Fixed Fee Tier: {signal['fixed_fee_tier']} （另加固定1%销售佣金）")
     print(f"{'='*60}\n")
     print(final_state["final_assessment"])
 

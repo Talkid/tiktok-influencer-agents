@@ -5,10 +5,10 @@ class SignalProcessor:
         self.quick_thinking_llm = quick_thinking_llm
 
     def process_signal(self, full_signal: str) -> dict:
-        """Extract tier rating and commission tier from the full assessment.
+        """Extract tier rating and fixed fee tier from the full assessment.
 
         Returns:
-            dict with 'tier' (S/A/B/C/D) and 'commission_tier' (T0/T1/T2/T3)
+            dict with 'tier' (S/A/B/C/D) and 'fixed_fee_tier' (T0/T1/T2/T3)
         """
         tier_messages = [
             (
@@ -22,7 +22,7 @@ class SignalProcessor:
         commission_messages = [
             (
                 "system",
-                "You are an assistant that extracts the commission tier from assessment reports. "
+                "You are an assistant that extracts the fixed fee tier from assessment reports. "
                 "Extract exactly one of: T0, T1, T2, T3. Output only the tier code, nothing else.",
             ),
             ("human", full_signal),
@@ -33,5 +33,5 @@ class SignalProcessor:
 
         return {
             "tier": tier,
-            "commission_tier": commission,
+            "fixed_fee_tier": commission,
         }

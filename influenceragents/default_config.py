@@ -1,12 +1,15 @@
 import os
 
-# Market-specific commission tiers and configuration
+# Market-specific fixed fee tiers and configuration
+# Pricing model: fixed fee per video (negotiable, see tiers) + fixed 1% sales commission
+COMMISSION_RATE = 0.01  # Fixed sales commission rate (not negotiable)
+
 MARKET_CONFIGS = {
     "MY": {
         "currency": "MYR",
         "currency_symbol": "RM",
         "languages": ["ms", "zh", "en"],
-        "commission_tiers": {
+        "fixed_fee_tiers": {
             "T0": {"min": 600, "label": "600+ RM"},
             "T1": {"min": 400, "max": 500, "label": "400-500 RM"},
             "T2": {"min": 200, "max": 350, "label": "200-350 RM"},
@@ -17,7 +20,7 @@ MARKET_CONFIGS = {
         "currency": "PHP",
         "currency_symbol": "₱",
         "languages": ["tl", "en"],
-        "commission_tiers": {
+        "fixed_fee_tiers": {
             "T0": {"min": 8000, "label": "8000+ PHP"},
             "T1": {"min": 5000, "max": 7000, "label": "5000-7000 PHP"},
             "T2": {"min": 2500, "max": 4500, "label": "2500-4500 PHP"},
@@ -28,7 +31,7 @@ MARKET_CONFIGS = {
         "currency": "VND",
         "currency_symbol": "₫",
         "languages": ["vi"],
-        "commission_tiers": {
+        "fixed_fee_tiers": {
             "T0": {"min": 3500000, "label": "3,500,000+ VND"},
             "T1": {"min": 2000000, "max": 3000000, "label": "2,000,000-3,000,000 VND"},
             "T2": {"min": 1000000, "max": 1800000, "label": "1,000,000-1,800,000 VND"},
@@ -39,7 +42,7 @@ MARKET_CONFIGS = {
         "currency": "BRL",
         "currency_symbol": "R$",
         "languages": ["pt"],
-        "commission_tiers": {
+        "fixed_fee_tiers": {
             "T0": {"min": 1500, "label": "1500+ BRL"},
             "T1": {"min": 1000, "max": 1400, "label": "1000-1400 BRL"},
             "T2": {"min": 500, "max": 900, "label": "500-900 BRL"},
