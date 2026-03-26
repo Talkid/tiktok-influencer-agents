@@ -45,7 +45,7 @@ def create_campaign_manager(llm, memory):
 **Fixed Fee Tier Scale（固定费用档位）** ({symbol}):
 {tier_table}
 
-IMPORTANT: The suggested fixed fee per video in point 2 MUST fall strictly within the selected tier's price range. Do NOT suggest a price outside the tier's min/max bounds. Note: A fixed 1% sales commission applies to all partnerships, in addition to the fixed fee.
+IMPORTANT: When assigning the Fixed Fee Tier and price in point 2, use the strategist's tier as the primary reference. Apply the same adjustment logic: upgrade (or price toward upper range) for strong engagement/commerce signals; downgrade (or price toward lower range) for weak engagement, fake followers, or no commerce history; otherwise default to mid-to-upper range. The final price MUST fall within the selected tier's price range. Note: A fixed 1% sales commission applies to all partnerships, in addition to the fixed fee.
 
 **Context:**
 - Partnership Strategist's proposal: **{strategist_plan}**

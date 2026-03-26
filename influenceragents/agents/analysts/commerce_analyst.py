@@ -37,7 +37,11 @@ Analyze the following aspects:
    - Health & Fitness
    - Baby & Kids
    - Others
-6. **Fixed Fee Tier Assessment（固定费用档位评估）**: Based on followers, engagement, and e-commerce track record, suggest T0/T1/T2/T3 tier. Note: a fixed 1% sales commission applies to all partnerships in addition to the fixed fee.
+6. **Fixed Fee Tier Assessment（固定费用档位评估）**: Use follower count as the baseline reference tier, then adjust based on actual data:
+   - Start with follower-based baseline: T0 (1M+), T1 (500K-1M), T2 (100K-500K), T3 (<100K)
+   - Upgrade one tier if: engagement rate >5%, strong TikTok Shop GMV, multiple proven brand collaborations, or high purchase-intent comments
+   - Downgrade one tier if: engagement rate <2%, suspected fake followers, no commerce history, or very weak audience buying signals
+   - State the baseline tier, any adjustment made, and the reason. Note: a fixed 1% sales commission applies to all partnerships in addition to the fixed fee.
 
 First call get_ecommerce_history to analyze past collaborations, then get_competitor_pricing for market rates, and get_tiktok_shop_data for shop activity.
 

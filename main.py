@@ -87,6 +87,10 @@ def main():
             deep, quick = _PROVIDER_DEFAULT_MODELS.get(args.provider, ("gpt-4o", "gpt-4o-mini"))
             config["deep_think_llm"] = deep
             config["quick_think_llm"] = quick
+        # Sync vision LLM to the same provider so it uses the same backend_url
+        if args.provider != "anthropic":
+            config["vision_llm_provider"] = args.provider
+            config["vision_llm_model"] = config.get("deep_think_llm", "gpt-4o")
     if args.deep_model:
         config["deep_think_llm"] = args.deep_model
     if args.quick_model:

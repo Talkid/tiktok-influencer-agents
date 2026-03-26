@@ -67,9 +67,11 @@ def analyze_thumbnails_claude(username: str, limit: int = 10) -> str:
         return f"Could not download any thumbnails for @{username}"
 
     # Build vision prompt
+    vision_provider = config.get("vision_llm_provider", "anthropic")
     vision_client = create_llm_client(
-        provider=config.get("vision_llm_provider", "anthropic"),
+        provider=vision_provider,
         model=config.get("vision_llm_model", "claude-sonnet-4-20250514"),
+        base_url=config.get("backend_url") if vision_provider not in ("anthropic",) else None,
     )
     vision_llm = vision_client.get_llm()
 
